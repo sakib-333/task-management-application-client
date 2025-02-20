@@ -1,4 +1,31 @@
+import { useNavigate } from "react-router-dom";
+import { errorAlert } from "../../Alerts/errorAlert";
+import { successAlert } from "../../Alerts/successAlert";
+import useAuth from "../../Hooks/useAuth/useAuth";
+
 const LoginPage = () => {
+  const { signinWithGoogle, setUserLoading } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSigninWithGoogle = () => {
+    if (signinWithGoogle) {
+      signinWithGoogle()
+        .then(() => {
+          successAlert("Login successful!");
+          console.log("Login successful!!!");
+          navigate("/");
+        })
+        .catch(() => {
+          errorAlert("Login failed!");
+        })
+        .finally(() => {
+          if (setUserLoading) {
+            setUserLoading(false);
+          }
+        });
+    }
+  };
+
   return (
     <div className="flex items-center justify-center">
       <div className="card bg-background w-full max-w-sm shrink-0 shadow-2xl">
@@ -34,7 +61,11 @@ const LoginPage = () => {
             <button className="btn bg-primary hover:bg-secondary">Login</button>
           </div>
           <div className="divider"></div>
-          <button className="btn" type="button">
+          <button
+            className="btn"
+            type="button"
+            onClick={handleSigninWithGoogle}
+          >
             Sign in Google
           </button>
         </form>
