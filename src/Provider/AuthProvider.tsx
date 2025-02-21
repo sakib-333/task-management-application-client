@@ -17,6 +17,7 @@ interface AuthProviderProps {
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<any>(null);
   const [userLoading, setUserLoading] = useState<boolean>(true);
+  const [dataLoading, setDataLoading] = useState<boolean>(false);
   const googleProvider = new GoogleAuthProvider();
   const axiosPublic = useAxiosPublic();
 
@@ -61,6 +62,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     setUserLoading,
     signoutUser,
     signinWithGoogle,
+    dataLoading,
+    setDataLoading,
   };
 
   return (
