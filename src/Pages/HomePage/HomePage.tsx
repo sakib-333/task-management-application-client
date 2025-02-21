@@ -3,6 +3,7 @@ import GeneralText from "../../Components/GeneralText/GeneralText";
 import useAuth from "../../Hooks/useAuth/useAuth";
 import AddTaskModal from "../../Modals/AddTaskModal/AddTaskModal";
 import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
+import MyTasks from "../../Components/MyTasks/MyTasks";
 
 const HomePage = () => {
   const { user, dataLoading } = useAuth();
@@ -22,7 +23,7 @@ const HomePage = () => {
           {showAddTaskModal && (
             <AddTaskModal setShowAddTaskModal={setShowAddTaskModal} />
           )}
-          <div>{dataLoading ? <LoadingSpinner /> : <h1>Hello</h1>}</div>
+          <div>{dataLoading ? <LoadingSpinner /> : <MyTasks />}</div>
         </div>
       ) : (
         <GeneralText />
