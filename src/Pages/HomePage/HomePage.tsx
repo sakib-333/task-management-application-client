@@ -1,5 +1,10 @@
+import GeneralText from "../../Components/GeneralText/GeneralText";
+import useAuth from "../../Hooks/useAuth/useAuth";
+
 const HomePage = () => {
-  return <div>HomePage</div>;
+  const { user } = useAuth();
+
+  return <div>{user ? <div>Hello</div> : <GeneralText />}</div>;
 };
 
 export default HomePage;
