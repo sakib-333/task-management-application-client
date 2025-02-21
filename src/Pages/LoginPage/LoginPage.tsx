@@ -2,18 +2,27 @@ import { useNavigate } from "react-router-dom";
 import { errorAlert } from "../../Alerts/errorAlert";
 import { successAlert } from "../../Alerts/successAlert";
 import useAuth from "../../Hooks/useAuth/useAuth";
+import { UserCredential } from "firebase/auth";
+import useAxiosPublic from "../../Hooks/useAxiosPublic/useAxiosPublic";
 
 const LoginPage = () => {
   const { signinWithGoogle, setUserLoading } = useAuth();
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const handleSigninWithGoogle = () => {
     if (signinWithGoogle) {
       signinWithGoogle()
-        .then(() => {
-          successAlert("Login successful!");
-          console.log("Login successful!!!");
-          navigate("/");
+        .then((_UserImpl: UserCredential) => {
+          const { displayName, email } = _UserImpl.user;
+          axiosPublic
+            .post("/registration", { name: displayName, email })
+            .then(({ data }) => {
+              if (data.acknowledgement) {
+                successAlert("Login successful!");
+                navigate("/");
+              }
+            });
         })
         .catch(() => {
           errorAlert("Login failed!");

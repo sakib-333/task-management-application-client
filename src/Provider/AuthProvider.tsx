@@ -5,8 +5,10 @@ import {
   onAuthStateChanged,
   signInWithPopup,
   signOut,
+  User,
 } from "firebase/auth";
 import { auth } from "../Firebase/firebase.config";
+import useAxiosPublic from "../Hooks/useAxiosPublic/useAxiosPublic";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -16,6 +18,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<any>(null);
   const [userLoading, setUserLoading] = useState<boolean>(true);
   const googleProvider = new GoogleAuthProvider();
+  const axiosPublic = useAxiosPublic();
 
   const signoutUser = () => {
     setUserLoading(true);
@@ -28,9 +31,25 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (currUser: User | null) => {
       setUser(currUser);
-      setUserLoading(false);
+
+      if (currUser) {
+        const { displayName, email } = currUser;
+        axiosPublic
+          .post("/jwt", { displayName, email })
+          .then(() => {
+            setUserLoading(false);
+          })
+          .finally(() => setUserLoading(false));
+      } else {
+        axiosPublic
+          .post("/logout")
+          .then(() => {
+            setUserLoading(false);
+          })
+          .finally(() => setUserLoading(false));
+      }
     });
     return () => unsubscribe();
   }, []);
