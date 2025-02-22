@@ -1,19 +1,24 @@
-import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
-import useAxiosPublic from "../../Hooks/useAxiosPublic/useAxiosPublic";
 import { LuClipboardType } from "react-icons/lu";
 import { IoTime } from "react-icons/io5";
 
-const TaskDetailsModal = ({ id, setShowDetailsModal }: any) => {
-  const axiosPublic = useAxiosPublic();
+type Task = {
+  title: string;
+  description: string;
+  category: "To-Do" | "In Progress" | "Done";
+  timestamp: string;
+};
+
+interface TaskDetailsModalProps {
+  task: Task;
+  setShowDetailsModal: any;
+}
+
+const TaskDetailsModal = ({
+  task,
+  setShowDetailsModal,
+}: TaskDetailsModalProps) => {
   const modalRef = useRef<HTMLDialogElement | null>(null);
-  const { data: myTask = {} } = useQuery({
-    queryKey: ["myTask"],
-    queryFn: async () => {
-      const res = await axiosPublic.post("/get-my-task", { id });
-      return res.data;
-    },
-  });
 
   useEffect(() => {
     if (modalRef.current) {
@@ -24,15 +29,15 @@ const TaskDetailsModal = ({ id, setShowDetailsModal }: any) => {
   return (
     <dialog ref={modalRef} id="details_task_modal" className="modal">
       <div className="modal-box">
-        <h3 className="font-bold text-lg">{myTask?.title}</h3>
-        <p>{myTask?.description}</p>
+        <h3 className="font-bold text-lg">{task?.title}</h3>
+        <p>{task?.description}</p>
         <div className="divider"></div>
         <div className="flex items-center justify-between">
           <p className="flex items-center">
-            <LuClipboardType /> <span>{myTask?.category}</span>
+            <LuClipboardType /> <span>{task?.category}</span>
           </p>
           <p className="flex items-center">
-            <IoTime /> <span>{myTask?.timestamp}</span>
+            <IoTime /> <span>{task?.timestamp}</span>
           </p>
         </div>
 

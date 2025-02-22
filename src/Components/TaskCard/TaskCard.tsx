@@ -3,12 +3,14 @@ import { FaEye, FaRegEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import TaskDetailsModal from "../../Modals/TaskDetailsModal/TaskDetailsModal";
 import useDeleteTask from "../../Hooks/useDeleteTask/useDeleteTask";
+import UpdateTaskModal from "../../Modals/UpdateTaskModal/UpdateTaskModal";
 
 type Task = {
   _id: string;
   title: string;
   description: string;
   category: "To-Do" | "In Progress" | "Done";
+  timestamp: string;
 };
 
 interface TaskCardProps {
@@ -17,6 +19,7 @@ interface TaskCardProps {
 
 const TaskCard = ({ task }: TaskCardProps) => {
   const [showDetailsModal, setShowDetailsModal] = useState<boolean>(false);
+  const [showEditModal, setShowEditModal] = useState<boolean>(false);
   const deleteTask = useDeleteTask();
 
   const handleDeleteTask = (id: string) => {
@@ -34,7 +37,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
           <button onClick={() => setShowDetailsModal(true)}>
             <FaEye />
           </button>
-          <button>
+          <button onClick={() => setShowEditModal(true)}>
             <FaRegEdit />
           </button>
           <button onClick={() => handleDeleteTask(task._id)}>
@@ -44,9 +47,12 @@ const TaskCard = ({ task }: TaskCardProps) => {
       </div>
       {showDetailsModal && (
         <TaskDetailsModal
-          id={task._id}
+          task={task}
           setShowDetailsModal={setShowDetailsModal}
         />
+      )}
+      {showEditModal && (
+        <UpdateTaskModal task={task} setShowEditModal={setShowEditModal} />
       )}
     </>
   );

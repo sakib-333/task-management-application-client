@@ -6,6 +6,7 @@ type Task = {
   title: string;
   description: string;
   category: "To-Do" | "In Progress" | "Done";
+  timestamp: string;
 };
 
 const MyTasks = () => {
