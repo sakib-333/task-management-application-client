@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaEye, FaRegEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import TaskDetailsModal from "../../Modals/TaskDetailsModal/TaskDetailsModal";
+import useDeleteTask from "../../Hooks/useDeleteTask/useDeleteTask";
 
 type Task = {
   _id: string;
@@ -16,6 +17,12 @@ interface TaskCardProps {
 
 const TaskCard = ({ task }: TaskCardProps) => {
   const [showDetailsModal, setShowDetailsModal] = useState<boolean>(false);
+  const deleteTask = useDeleteTask();
+
+  const handleDeleteTask = (id: string) => {
+    deleteTask(id);
+  };
+
   return (
     <>
       <div className="max-w-sm mb-2 mx-auto w-full h-full p-3 max-h-[80px] border rounded-md group">
@@ -30,7 +37,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
           <button>
             <FaRegEdit />
           </button>
-          <button>
+          <button onClick={() => handleDeleteTask(task._id)}>
             <MdDeleteForever />
           </button>
         </div>
