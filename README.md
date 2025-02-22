@@ -1,64 +1,82 @@
 # Task Management Application
 
-A powerful task management application built with **React** and **TypeScript** to help users efficiently organize, track, and manage their tasks.
+## Description
 
-## 🚀 Features
+This is a React-based **Task Management Application** that allows users to add, edit, view, and delete tasks. It provides an intuitive interface for managing daily tasks efficiently. Built with React and TypeScript, the application ensures a smooth user experience with dynamic task handling.
 
-- ✅ Create, update, and delete tasks
-- 📌 Set priorities and deadlines
-- 📊 Track task status (To-Do, In Progress, Completed)
-- 🔍 Search and filter tasks
-- 🎨 Clean and responsive UI with Tailwind CSS
-- 🗂️ Organized folder structure for scalability
+# Purpose
 
-## 🛠️ Technologies Used
+1.  Organize and manage daily tasks efficiently.
+2.  Improve productivity and task tracking.
+3.  Provide an intuitive and user-friendly interface for task management.
 
-- **Frontend:** React, TypeScript, Tailwind CSS
-- **State Management:** React Context API / Redux (if used)
-- **Routing:** React Router
-- **Backend:** (Specify if applicable)
-- **Database:** (Specify if applicable)
+## Technologies used
 
-## 📦 Installation
+1. React
 
-```sh
-# Clone the repository
-git clone https://github.com/sakib-333/task-management-application-client.git
+2. Express(JWT, CORS)
 
-# Navigate to the project directory
-cd task-management-application-client
+3. MongoDB
 
-# Install dependencies
-npm install
+4. Node
 
-# Start the development server
-npm run dev
-```
+## Core features
 
-## 📄 Folder Structure
+1. Authentication.
+2. Add task.
+3. Edit task.
+4. View task.
+5. Delete task.
 
-```
-/task-management-application-client
-│-- src/
-│   │-- components/    # Reusable UI components
-│   │-- pages/         # Application pages
-│   │-- context/       # State management
-│   │-- hooks/         # Custom hooks
-│   │-- styles/        # Global styles
-│   │-- utils/         # Utility functions
-│-- public/
-│-- README.md
-│-- package.json
-```
+## Dependencies
 
-## 🤝 Contributing
+1. TanStack
+2. Axios
+3. Firebase
+4. Sweet Alert
 
-Contributions are welcome! If you'd like to improve this project, feel free to fork the repository and submit a pull request.
+## Live links
 
-## 📜 License
+1. Live link: [visit](https://task-management-applicat-d14b5.web.app)
 
-This project is licensed under the **MIT License**.
+## Server Repo
 
----
+1. Repo: [visit](https://github.com/sakib-333/task-management-application-server)
 
-🌟 **Star this repository** if you find it useful!
+## How to in local machine
+
+1. Clone the repository to your local machine:
+
+   ```bash
+   git clone git@github.com:sakib-333/task-management-application-client.git
+
+   cd task-management-application-client
+   ```
+
+2. Install dependencies
+
+   ```bash
+   npm install
+   ```
+
+3. Create a `.env.local` file root of the folder and all of your secret keys.
+
+   ```bash
+   VITE_apiKey=<your-firebase-api-key>
+   VITE_authDomain=<your-firebase-authDomain>
+   projectId=<your-firebase-projectId>
+   storageBucket=<your-firebase-storageBucket>
+   messagingSenderId=<your-firebase-messagingSenderId>
+   appId=<your-firebase-appId>
+   VITE_BASE_URL=<your-server-base-url>
+
+
+   ```
+
+4. Start server
+
+   ```bash
+   npm run dev
+   ```
+
+5. Your server should now be running on `http://localhost:5173`.
